@@ -19,7 +19,8 @@ const values = [
   true,
   null,
   undefined,
-  BigInt(123),
+  // Node.js v8
+  ...(typeof BigInt === 'undefined' ? [] : [BigInt(123)]),
   [123, '123'],
   { a: 123, b: '123' }
 ];
@@ -42,12 +43,14 @@ const tests: Test[] = group('matchers/', [
     assert(values.filter((v) => match(v, m)).length === 1);
   }),
 
-  test('anyBigInt matcher', async () => {
-    const m = anyBigInt();
-    assert(match(BigInt(123), m) === true);
-    assert(match(BigInt(456), m) === true);
-    assert(values.filter((v) => match(v, m)).length === 1);
-  }),
+  ...(typeof BigInt === 'undefined' ? [] : [
+    test('anyBigInt matcher', async () => {
+      const m = anyBigInt();
+      assert(match(BigInt(123), m) === true);
+      assert(match(BigInt(456), m) === true);
+      assert(values.filter((v) => match(v, m)).length === 1);
+    })
+  ]),
 
   test('anyBoolean matcher', async () => {
     const m = anyBoolean();
