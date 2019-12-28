@@ -1,8 +1,9 @@
 import assert from 'assert';
-import { Test, run, test } from 'beater';
+import { Test, run } from 'beater';
+import { name, named as test } from 'beater-helpers/name';
 
-const group = (name: string, tests: Test[]): Test[] =>
-  tests.map(({ meta, fn }) => test(name + meta.get('name'), fn));
+const group = (groupName: string, tests: Test[]): Test[] =>
+  tests.map((t) => test(groupName + name(t), t));
 
 export {
   Test,
