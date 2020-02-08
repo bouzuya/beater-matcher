@@ -3,6 +3,10 @@ import { isObject } from "./helper";
 type Matcher = unknown | MatcherFn;
 type MatcherFn = (value: unknown) => boolean;
 
+const isMatcherFn = (f: Function): f is MatcherFn =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (f as any).__matcher__ === true;
+
 const match = (value: unknown, matcher: Matcher): boolean => {
   switch (typeof matcher) {
     case "bigint":
@@ -38,9 +42,6 @@ const match = (value: unknown, matcher: Matcher): boolean => {
       throw new Error(`unknown matcher type '${typeof matcher}'`);
   }
 };
-
-const isMatcherFn = (f: Function): f is MatcherFn =>
-  (f as any).__matcher__ === true;
 
 const defineMatcher = (f: MatcherFn): MatcherFn => {
   Object.defineProperty(f, "__matcher__", { value: true });

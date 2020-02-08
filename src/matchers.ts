@@ -1,34 +1,36 @@
 import { isObject } from "./helper";
-import { defineMatcher, match } from "./matcher";
+import { MatcherFn, defineMatcher, match } from "./matcher";
 
-const any = () => defineMatcher((_: unknown) => true);
+const any = (): MatcherFn => defineMatcher((_: unknown) => true);
 
-const anyArray = () => defineMatcher((value: unknown) => Array.isArray(value));
+const anyArray = (): MatcherFn =>
+  defineMatcher((value: unknown) => Array.isArray(value));
 
-const anyBigInt = () =>
+const anyBigInt = (): MatcherFn =>
   defineMatcher((value: unknown) => typeof value === "bigint");
 
-const anyBoolean = () =>
+const anyBoolean = (): MatcherFn =>
   defineMatcher((value: unknown) => typeof value === "boolean");
 
-const anyFunction = () =>
+const anyFunction = (): MatcherFn =>
   defineMatcher((value: unknown) => typeof value === "function");
 
-const anyNumber = () =>
+const anyNumber = (): MatcherFn =>
   defineMatcher((value: unknown) => typeof value === "number");
 
-const anyObject = () => defineMatcher((value: unknown) => isObject(value));
+const anyObject = (): MatcherFn =>
+  defineMatcher((value: unknown) => isObject(value));
 
-const anyString = () =>
+const anyString = (): MatcherFn =>
   defineMatcher((value: unknown) => typeof value === "string");
 
-const matchString = (regexp: RegExp) =>
+const matchString = (regexp: RegExp): MatcherFn =>
   defineMatcher(
     (value: unknown) =>
       typeof value === "string" && value.match(regexp) !== null
   );
 
-const partialObject = (o: unknown) =>
+const partialObject = (o: unknown): MatcherFn =>
   defineMatcher(
     (value: unknown) =>
       isObject(value) &&

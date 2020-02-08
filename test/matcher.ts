@@ -68,7 +68,7 @@ const tests: Test[] = group("matcher/", [
   }),
 
   test("function matcher", async () => {
-    const m = () => void 0;
+    const m = (): void => void 0;
     assert(match(m, m) === true);
     assert(match(() => void 0, m) === false);
     assert(values.filter(v => match(v, m)).length === 0);
