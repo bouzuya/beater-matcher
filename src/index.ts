@@ -1,4 +1,4 @@
-export { Matcher, MatcherFn, defineMatcher, match } from './matcher';
+export { Matcher, MatcherFn, defineMatcher, match } from "./matcher";
 export {
   any,
   anyArray,
@@ -10,4 +10,4 @@ export {
   anyString,
   matchString,
   partialObject
-} from './matchers';
+} from "./matchers";
