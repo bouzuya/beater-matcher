@@ -1,7 +1,7 @@
 {
   "name": "beater-matcher",
   "description": "A matcher library for beater.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "bouzuya <m@bouzuya.net> (https://bouzuya.net/)",
   "babel": {
     "presets": [
